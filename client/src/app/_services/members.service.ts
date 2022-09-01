@@ -3,10 +3,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgxGalleryThumbnailsComponent } from '@kolkov/ngx-gallery';
 import { of, scheduled } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
 import { PaginatedResult } from '../_models/pagination';
+import { User } from '../_models/user';
 import { UserParams } from '../_models/userParams';
 import { AccountService } from './account.service';
 
@@ -26,6 +27,20 @@ export class MembersService {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
       this.user = user;
       this.userParams = new UserParams(user);
+    })
+   }
+
+   getUserParams() {
+    return this.userParams;
+   }
+
+   setUserParams(params: UserParams) {
+    this.userParams = params;
+   }
+
+   resetUserParams(){
+    this.userParams = new UserParams(this.user);
+    return this.userParams;
    }
 
   getMembers(userParams: UserParams)  {
