@@ -12,7 +12,9 @@ import { TimeagoModule } from 'ngx-timeago';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    
+  ],
   imports: [
     CommonModule,
     BsDropdownModule.forRoot(),
